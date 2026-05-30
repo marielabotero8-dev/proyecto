@@ -15,6 +15,7 @@ from utils import (
     calcular_demanda_promedio,
     path_json_a_lista
 )
+from route_optimizer import AsignadorRutasInteligente
 
 import random
 import json
@@ -328,6 +329,24 @@ db.commit()
 print("✅ 200 buses creados")
 
 # =========================
+# ASIGNACIÓN INTELIGENTE DE RUTAS
+# =========================
+
+print("\n🔄 Asignando rutas de forma inteligente...")
+
+asignador = AsignadorRutasInteligente()
+asignaciones = asignador.asignar_todas_las_rutas()
+
+print(f"✅ {len(asignaciones)} buses asignados a rutas")
+
+# Mostrar estadísticas
+stats = asignador.estadisticas_asignacion()
+print(f"\n📊 Estadísticas de asignación:")
+print(f"   - Total buses: {stats['total_buses']}")
+print(f"   - Buses asignados: {stats['buses_asignados']}")
+print(f"   - Promedio buses/ruta: {stats['promedio_buses_por_ruta']}")
+
+# =========================
 # CONDUCTORES
 # =========================
 
@@ -434,9 +453,19 @@ print("✅ 10.000 viajes históricos creados")
 db.close()
 
 print("\n" + "="*60)
-print("🚀 FASE 1 COMPLETADA - Sistema Metropolitano RISARALDA listo")
+print("🚀 SISTEMA COMPLETO - LISTO PARA DEMOSTRACIÓN")
 print("="*60)
-print("✅ distancia_km calculada automáticamente")
-print("✅ tiempo_estimado_min calculada automáticamente") 
-print("✅ demanda_promedio calculada automáticamente")
-print("✅ RutaParadaDB poblada con secuencias de paradas")
+print("✅ FASE 1: Cálculos automáticos")
+print("   - distancia_km calculada")
+print("   - tiempo_estimado_min calculada") 
+print("   - demanda_promedio calculada")
+print("   - RutaParadaDB poblada\n")
+print("✅ FASE 2: Grafo y Algoritmo Dijkstra")
+print("   - Matriz de adyacencia creada")
+print("   - Matriz ponderada con distancias")
+print("   - Dijkstra implementado\n")
+print("✅ ASIGNACIÓN INTELIGENTE")
+print("   - Rutas asignadas por demanda")
+print("   - Considerando tipo de motor")
+print("   - Balanceando capacidad")
+print("="*60)
